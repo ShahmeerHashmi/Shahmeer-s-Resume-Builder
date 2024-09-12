@@ -243,7 +243,7 @@ const ResumeBuilder = () => {
 
       <button
         type="submit"
-        className="bg-green-500 text-white px-8 py-3 mt-4 rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105"
+        className="bg-green-500 text-white px-8 py-3 rounded-lg shadow-md hover:bg-green-600 transition duration-200"
       >
         Preview Resume
       </button>
@@ -251,7 +251,7 @@ const ResumeBuilder = () => {
   );
 
   const renderResume = () => (
-    <div className="max-w-4xl mx-auto bg-black bg-opacity-75 p-8 rounded-lg shadow-2xl transition duration-500">
+    <div className="max-w-4xl mx-auto p-8 rounded-lg shadow-2xl transition duration-500" style={{ background: 'rgba(0, 0, 50, 0.75)' }}>
       <h1 className="text-4xl font-extrabold text-center mb-4 text-white">Shahmeer's Resume Builder</h1>
       <p className="text-center text-gray-300 mb-6">
         {email} | {phone} | {address}
@@ -260,11 +260,8 @@ const ResumeBuilder = () => {
       <section className="mb-8">
         <h2 className="text-2xl font-semibold text-sky-500 mb-4">Education</h2>
         {education.map((edu, index) => (
-          <div key={index} className="mb-4">
-            <p className="font-semibold text-white">{edu.school}</p>
-            <p className="text-gray-300">
-              {edu.degree} ({edu.year})
-            </p>
+          <div key={index}>
+            <h3 className="text-white text-lg">{edu.degree}, {edu.school} ({edu.year})</h3>
           </div>
         ))}
       </section>
@@ -272,44 +269,44 @@ const ResumeBuilder = () => {
       <section className="mb-8">
         <h2 className="text-2xl font-semibold text-sky-500 mb-4">Experience</h2>
         {experience.map((exp, index) => (
-          <div key={index} className="mb-4">
-            <p className="font-semibold text-white">{exp.company}</p>
-            <p className="text-gray-300">
-              {exp.role} ({exp.years})
-            </p>
+          <div key={index}>
+            <h3 className="text-white text-lg">{exp.role}, {exp.company} ({exp.years})</h3>
           </div>
         ))}
       </section>
 
-      <section className="mb-8">
+      <section>
         <h2 className="text-2xl font-semibold text-sky-500 mb-4">Skills</h2>
-        {skills.map((skill, index) => (
-          <div key={index} className="mb-2">
-            <p className="text-white">{skill}</p>
-          </div>
-        ))}
+        <ul className="list-disc list-inside text-white">
+          {skills.map((skill, index) => (
+            <li key={index}>{skill}</li>
+          ))}
+        </ul>
       </section>
 
       <button
-        onClick={() => setPreviewMode(false)}
-        className="bg-gray-500 text-white px-8 py-3 mt-4 rounded-full shadow-lg hover:bg-gray-600 transition duration-300 transform hover:scale-105"
+        type="button"
+        onClick={sendResume}
+        className="mt-8 bg-blue-500 text-white px-8 py-3 rounded-lg shadow-md hover:bg-blue-600 transition duration-200"
       >
-        Back to Form
+        Send Resume via Email
       </button>
 
       <button
-        onClick={sendResume}
-        className="bg-blue-500 text-white px-8 py-3 mt-4 ml-4 rounded-full shadow-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105"
+        type="button"
+        onClick={() => setPreviewMode(false)}
+        className="mt-4 bg-red-500 text-white px-8 py-3 rounded-lg shadow-md hover:bg-red-600 transition duration-200"
       >
-        Send to My Email
+        Back
       </button>
     </div>
   );
 
   return (
-    <div className="container mx-auto p-8">
-      <h1 className="text-5xl font-bold text-sky-500 text-center mb-8">Shahmeer's Resume Builder</h1>
-      {previewMode ? renderResume() : renderInputFields()}
+    <div className="min-h-screen bg-gray-900 text-white py-12">
+      <div className="container mx-auto">
+        {previewMode ? renderResume() : renderInputFields()}
+      </div>
     </div>
   );
 };
